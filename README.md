@@ -17,7 +17,7 @@ Downloading and extract dataset and weights at proper locations
 5. Extract yolo.zip in Smart_survelliance_system folder
 6. Extract  people_search.zip in Smart_survelliance_system/micro_server/FaceRecog folder
 7. Extract  people_search_dataset.zip in Smart_survelliance_system/micro_server/FaceRecog folder
-8. Extract  dataset.zip in Smart_survelliance_system/micro_server/FaceRecog folder
+8. Extract  dataset.zip and face_detection_model in Smart_survelliance_system/micro_server/FaceRecog folder
 9. Extract  openface_nn4.small2.v1.zip in Smart_survelliance_system/micro_server/FaceRecog folder 
 
 To run the system follow these instructions(Windows command line)
