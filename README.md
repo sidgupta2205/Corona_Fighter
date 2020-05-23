@@ -23,10 +23,15 @@ Downloading and extract dataset and weights at proper locations
 To run the system follow these instructions(Windows command line)
 
 cd into the project directory of Smart_survelliance_system
+
 python micro_server/FaceRecog/extract_embeddings.py
+
 python micro_server/FaceRecog/train_model.py
+
 python micro_server/people_count.py
+
 python micro_server/REALTIMEMONITOR.py
+
 python micro_server/server.py(Do not close the cmd)
 
 
