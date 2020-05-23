@@ -6,6 +6,8 @@ This system consists of main 4 parts
 3. Person tracking across cameras
 4. Live view of cameras
 
+Download Dataset and model from this link - https://drive.google.com/open?id=13dsrlzxqt7jIZ4kb09GW1jHIG-533eYm
+
 
 To run this project follow the following instructions
 Downloading and extract dataset and weights at proper locations
