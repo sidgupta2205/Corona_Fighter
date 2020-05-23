@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="navbar">
+  <a href="Live_page.html">LIVE VIEW</a>
+  <a href="crowd_alert.html">CROWD ALERT</a>
+  <a href="people_search.php">PEOPLE SEARCH</a>
+  <div class="dropdown">
+    <button class="dropbtn">QURANTINE PERSON TRACK 
+    </button>
+    <div class="dropdown-content">
+      <a href="Add_person_track.php">ADD PERSON TO TRACK</a>
+      <a href="Real_time_alert.html">REAL TIME ALERT</a>
+    </div>
+  </div> 
+</div>
+<br>
+<br>
+<div>
+<button  onclick="httpGetAsync()">CROWD ALERT</button>
+<div>
+  <video id="cam1" width="40%" height="40%" controls autoplay muted>
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <h5 id="cam1head">CLICK TO CHECK FOR ALERT</h5>
+    <video id="cam2" width="40%" height="40%" controls autoplay muted>
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <h5 id="cam2head">CLICK TO CHECK FOR ALERT</h5>
+    <video id="cam3" width="40%" height="40%" controls autoplay muted>
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <h5 id="cam3head">CLICK TO CHECK FOR ALERT</h5>
+    <video id="cam4" width="40%" height="40%" controls autoplay muted>
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <h5 id="cam4head">CLICK TO CHECK FOR ALERT</h5>
+</div>
+
+</div>
+</body>
+<script>  
+  function httpGetAsync()
+    {   
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;     
+        var cam1 = document.getElementById("cam1")
+        var cam2 = document.getElementById("cam2")
+        var cam3 = document.getElementById("cam3")
+        var cam4 = document.getElementById("cam4")
+        var cam1head = document.getElementById("cam1head")
+        var cam2head = document.getElementById("cam2head")
+        var cam3head = document.getElementById("cam3head")
+        var cam4head = document.getElementById("cam4head")
+        var path = "../Test_cities/"
+        var theUrl = 'http://localhost:5081/?cmd=crowd_alert'
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            {
+                var myArr = JSON.parse(xmlHttp.responseText)
+                if (myArr.cam1File!="NA")
+                {
+                  cam1.src = path+"cam1_"+myArr.cam1File
+                  cam1head.innerHTML ="CROWD ALERT! CROWD ALERT! AT CAM1LOCATION "+ dateTime
+                  cam1.play()
+                }
+                else
+                {
+                  cam1head.innerHTML ="NO NEW ALERT AT CAM1LOCATION "
+                }
+                if (myArr.cam2File!="NA")
+                {
+                  cam2.src = path+"cam2_"+myArr.cam2File
+                  cam2head.innerHTML ="CROWD ALERT! CROWD ALERT! AT CAM2LOCATION "+ dateTime
+                  cam2.play()
+                }
+                else
+                {
+                  cam2head.innerHTML = "NO NEW ALERT AT CAM2LOCATION "
+                }
+                if(myArr.cam3File!="NA")
+                {
+                  cam3.src = path+"cam3_"+myArr.cam3File
+                  cam3head.innerHTML ="CROWD ALERT! CROWD ALERT! AT CAM3LOCATION "+ dateTime
+                  cam3.play()
+                }
+                else
+                {
+                  cam3head.innerHTML = "NO NEW ALERT AT CAM3LOCATION"
+                }
+                if(myArr.cam4File!="NA")
+                {
+                  cam4.src = path+"cam4_"+myArr.cam4File
+                  cam4head.innerHTML ="CROWD ALERT! CROWD ALERT! AT CAM4LOCATION "+ dateTime
+                  cam4.play()
+                }
+                 else
+                 {
+                   cam4head.innerHTML = "NO NEW ALERT AT CAM4LOCATION"
+                 }
+            }
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send();
+    }
+    </script>
+  
+</html>

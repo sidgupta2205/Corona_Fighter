@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="navbar">
+  <a href="Live_page.html">LIVE VIEW</a>
+  <a href="crowd_alert.html">CROWD ALERT</a>
+  <a href="people_search.php">PEOPLE SEARCH</a>
+  <div class="dropdown">
+    <button class="dropbtn">QURANTINE PERSON TRACK 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="Add_person_track.php">ADD PERSON TO TRACK</a>
+      <a href="Real_time_alert.html">REAL TIME ALERT</a>
+    </div>
+  </div> 
+</div>
+<br>
+<br>
+<div>
+  <button type="button" onclick="httpGetAsync()">GET REAL ALERT</button>
+</div>
+<div id="Images">
+  
+</div>
+
+</body>
+</html>
+
+<script>
+  function myFunction(arr) {
+      var out = "";
+      var i;
+      var val;
+      path = "../micro_server/"
+          //alert(arr.length);
+      for(var key in arr) {
+          var add = arr[key].split("/")
+          var last = add[add.length-1]
+          var camarr = last.split("_")
+          var cam = camarr[0]
+          var persona = camarr[1].split(".")
+          var person = persona[0]
+          out += '<img src="'+ path+ arr[key] + '" height="300" width="400"/><h3> '+person+' Last Seen at '+cam+' Location</h3>';
+      }
+      document.getElementById("Images").innerHTML = out;
+  }
+  
+      function httpGetAsync()
+      {
+          
+          var theUrl = 'http://localhost:5081/?cmd=realTimePeople'
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.onreadystatechange = function() { 
+              if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+              {
+                  var myArr = JSON.parse(xmlHttp.responseText)
+                  myFunction(myArr)
+                  
+              }
+          }
+          xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+          xmlHttp.send();
+  
+      }
+       
+  </script>
+  
