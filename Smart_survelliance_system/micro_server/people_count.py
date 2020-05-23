@@ -6,7 +6,7 @@ import traceback
 
 confid = 0.5
 thresh = 0.5
-dirs = glob.glob("D:\\xampp\\htdocs\\Corona_Fighter\\Test_cities\\*.mp4")
+dirs = glob.glob("..\\Test_cities\\*.mp4")
 
 
 def calibrated_dist(p1, p2):
