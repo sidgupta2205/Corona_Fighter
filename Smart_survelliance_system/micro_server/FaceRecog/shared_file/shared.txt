@@ -1,3 +1,3 @@
+shahrukh cam4_1012020_vid.mp4 FaceRecog///QurantinePerson//cam4_shahrukh.jpg 87960.00000000001 
 irfan cam4_2012020.mp4 FaceRecog///QurantinePerson//cam1_irfan.jpg 109960.00000000001 
-shahrukh cam4_2012020.mp4 FaceRecog///QurantinePerson//cam3_shahrukh.jpg 119960.00000000001 
 ayushman cam4_2012020.mp4 FaceRecog///QurantinePerson//cam4_ayushman.jpg 151960.0 

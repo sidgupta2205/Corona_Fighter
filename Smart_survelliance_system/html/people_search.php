@@ -47,13 +47,17 @@
   <form action="/Corona_Fighter/html/people_search.php" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
+    <input type="submit" value="Upload Image" name="submit">  
   </form>  
+  <button  onclick="trainNow()">Train Now</button>
+  <br>
+  <br>
   Name:<input type="input" id="name">
   <button  onclick="httpGetAsync()">SEARCH NOW</button>
 </div>
 <br>
 <br>
+<h3 id="train_message"></h3>
 <div id="Images">
 </div>
 <div id="fade"></div>
@@ -111,8 +115,30 @@ function closeModal() {
         }
         xmlHttp.open("GET", theUrl, true); // true for asynchronous 
         xmlHttp.send();
-
     }
+
+
+    function trainNow()
+    {
+        openModal()
+        var theUrl = 'http://localhost:5081/?cmd=train_now' 
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            {
+                closeModal()
+                var myAr = JSON.parse(xmlHttp.responseText) 
+                console.log(myAr.current)
+                document.getElementById('train_message').innerHTML = myAr.current
+            }
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send();
+    }
+
+
+
+
      
 </script>
 
@@ -134,7 +160,7 @@ if ($uploadOk == 0) {
     $zip = new ZipArchive;
     $res = $zip->open($target_file);
 if ($res === TRUE) {
-  $zip->extractTo('../FaceRecog/dataset/');
+  $zip->extractTo('../micro_server/FaceRecog/dataset/');
   $zip->close();
   echo 'woot!';
 } else {

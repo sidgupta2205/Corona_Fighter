@@ -41,7 +41,7 @@ le = pickle.loads(open(LabelPath, "rb").read())
 
 # initialize the video stream, then allow the camera sensor to warm up
 print("[INFO] starting video stream...")
-vs = cv2.VideoCapture("D:\\Test_Video\\29.mp4")
+vs = cv2.VideoCapture("D:\\xampp\\htdocs\\Corona_Fighter\\micro_server\\FaceRecog\\people_search_dataset\\cam4_2012020.mp4")
 framerate = int(vs.get(cv2.CAP_PROP_FPS))
 framecount = 0
 

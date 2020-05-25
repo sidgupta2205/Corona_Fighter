@@ -3,7 +3,8 @@ from http.server import BaseHTTPRequestHandler,HTTPServer
 from urllib.parse import urlparse,parse_qs
 import json
 from FaceRecog import recognize_video
-
+from FaceRecog import extract_embeddings
+from FaceRecog import train_model
 PORT_NUMBER = 5081
 camFiles = ['','','','']
 camData = ['','','','']
@@ -95,6 +96,12 @@ class myHandler(BaseHTTPRequestHandler):
             name = query_components["name"][0]
             image_response = recognize_video.getImages(name)
             self.writeResponse(image_response)
+
+        elif command=="train_now":
+            print(command)
+            extract_embeddings.extract_embeddings()
+            respos = train_model.train_model()
+            self.writeResponse(respos)
 
         elif command =="realTimePeople":
             #read content of file

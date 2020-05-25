@@ -9,31 +9,37 @@ import argparse
 import pickle
 
 # construct the argument parser and parse the arguments
+def train_model():
+    try:
+        Mainpath = "FaceRecog//"
+        embeddingPath = Mainpath+ "output/embeddings.pickle"
+        LabelPath = Mainpath+"output/le.pickle"
+        recognizerPath =Mainpath+ "output/recognizer.pickle"
+        # load the face embeddings
+        print("[INFO] loading face embeddings...")
+        data = pickle.loads(open(embeddingPath, "rb").read())
 
-embeddingPath = "output/embeddings.pickle"
-LabelPath = "output/le.pickle"
-recognizerPath = "output/recognizer.pickle"
-# load the face embeddings
-print("[INFO] loading face embeddings...")
-data = pickle.loads(open(embeddingPath, "rb").read())
+        # encode the labels
+        print("[INFO] encoding labels...")
+        le = LabelEncoder()
+        labels = le.fit_transform(data["names"])
 
-# encode the labels
-print("[INFO] encoding labels...")
-le = LabelEncoder()
-labels = le.fit_transform(data["names"])
+        # train the model used to accept the 128-d embeddings of the face and
+        # then produce the actual face recognition
+        print("[INFO] training model...")
+        recognizer = SVC(C=1.0, kernel="linear", probability=True)
+        recognizer.fit(data["embeddings"], labels)
 
-# train the model used to accept the 128-d embeddings of the face and
-# then produce the actual face recognition
-print("[INFO] training model...")
-recognizer = SVC(C=1.0, kernel="linear", probability=True)
-recognizer.fit(data["embeddings"], labels)
+        # write the actual face recognition model to disk
+        f = open(recognizerPath, "wb")
+        f.write(pickle.dumps(recognizer))
+        f.close()
 
-# write the actual face recognition model to disk
-f = open(recognizerPath, "wb")
-f.write(pickle.dumps(recognizer))
-f.close()
+        # write the label encoder to disk
+        f = open(LabelPath, "wb")
+        f.write(pickle.dumps(le))
+        f.close()
+        return {'current':'train successfully'}
 
-# write the label encoder to disk
-f = open(LabelPath, "wb")
-f.write(pickle.dumps(le))
-f.close()
+    except:
+        return {'current':'training failed'}    

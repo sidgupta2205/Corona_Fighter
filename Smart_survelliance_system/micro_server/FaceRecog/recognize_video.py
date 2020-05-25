@@ -129,7 +129,7 @@ def getImages(search_name):
 							proba = preds[j]
 							name = le.classes_[j]
 
-							if(name == search_name):
+							if(name == search_name and proba>0.5):
 
 								PersonDetected = 1
 							# draw the bounding box of the face along with the
@@ -180,7 +180,7 @@ def getImages(search_name):
 								proba = preds[j]
 								name = le.classes_[j]
 
-								if(name=="unknown"):
+								if(name!=search_name):
 									imgPath = outputFaceFolder+"//"+camname+"_"+str(faceCount)+".jpg"
 									cv2.imwrite(imgPath,face)
 									print(imgPath)
